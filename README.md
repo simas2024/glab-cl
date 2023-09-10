@@ -1,0 +1,160 @@
+# GLab Command Line Tool
+
+Functions for a user's GitLab repositories:
+
+- Load projects information and navigate through all projects and change the visibility
+- Load personal snippets information and navigate through all snippets and change the visibility
+
+# Screenshot
+
+Running the script over `ssh` on Ubuntu 22.04:
+
+<div align="center">
+
+<img align="center" width="800" src="https://www.mascapp.com/taxadb/img/animationExampleE.webp.png">
+
+</div>
+
+# Setup
+
+## `Zsh` - The Z shell
+
+On macOS `zsh` is the standard shell. No installation required.
+
+On Ubuntu 22.04 using `apt`
+
+    apt install zsh
+
+## `GLab` - A GitLab CLI
+
+On macOS using `brew`:
+
+    brew install glab
+
+On Ubuntu 22.04 using `snap`:
+
+    snap install --edge glab
+
+## `jq` - A command-line JSON processor
+
+On macOS using `brew`:
+
+    brew install jq
+
+On Ubuntu 22.04 using `apt`:
+
+    apt install jq
+
+# GitLab Login
+
+Since glab version 1.29.0 (2023-05-04) there are two ways to log in to GitLab (`gitlab.com`) to get authorization for glab: via _Personal Authorization Token (PAT)_ or via _OAuth 2.0_.
+
+For glab versions <1.29.0 only PAT is possible.
+
+For both methods the following command guides you through the login process:
+
+    glab auth login
+
+Choose PAT ( = "Token") or OAuth 2.0 ( = "Web").
+
+After successful login, run the script:
+
+    ✓ Logged in as <user name>
+
+Glab remembers the login, so this a one-time setup step.
+
+# Run
+
+    git clone https://gitlab.com/ms152718212/glab-cl.git
+    cd glab-cl/src
+    ./run.sh <userid>
+
+## Commands
+
+In the **Main view**:
+
+Key | Command | GitLab Request | Request Type
+--- | --- | --- | ---
+`<UP>` `<DOWN>`| **Select** an item. | no | -
+`<RIGHT>` | **Open** the **selected item view**. | yes, when there is no cached data | read
+`number` |  **Open** the **item view <NR>**; first fetch all data | yes, when there is no cached data | read
+`q` `<CTRL+C>` | **Quit** | no | -
+`r`|  **Reset** the **view**, adjust page size to the window size. | no | -
+
+In the **Projects** and **Personal Snippets** view:
+
+Key | Command | GitLab Request | Request Type
+--- | --- | --- | ---
+`<UP>` `<DOWN>`| **Select** an item. | no | -
+`<LEFT>` `<RIGHT>`| **Go to** the **previous** or **next page**. | no | -
+`s`| **Switch**  ("toggle") the **visibility**, mark for the next update. | no | -
+`u` |  **Reloads** the view with data from the cache. **Updates** locally changed data on GitLab. | yes | write, read
+`U` |  **Delete** cached data. **Updates** all data. **Reloads** the view. | yes | write, read
+`q` `<LEFT>` | **Return to Main view**. | no | -
+`<CTRL+C>` | **Quit** | no | -
+`c`|  **Clear cache and reset** the view, adjust page size according to the window size. | yes | read
+
+## Clean up the cache files from time to time
+
+Requested data will be processed and stored locally [./src/data/tmp](./src/data/tmp) and used from there as a cache:
+
+    src/data/tmp
+    ├── 1689139347_cache
+    │   ├── current_snippet_data_4306763.txt
+    │   ├── current_snippet_data_4306763_26_1.txt
+    ...
+    │   └── current_snippet_data_4306763_6_2.txt
+    ├── 1689143106_cache
+    │   ├── current_project_data_4306763.txt
+    │   └── current_project_data_4306763_26_1.txt
+    ...
+    │   └── current_project_data_4306763_26_1.txt
+    ├── 1689656727_cache
+    │   ├── current_project_data_4306763.txt
+    │   └── current_project_data_4306763_26_1.txt
+    ...
+    ├── 1689747128_cache
+    │   ├── current_project_data_4306763.txt
+    │   └── current_project_data_4306763_26_1.txt
+    ...
+    ├── 1689828151_cache
+    │   ├── current_project_data_4306763.txt
+    │   ├── current_project_data_4306763_24_1.txt
+    │   ├── current_project_data_4306763_25_1.txt
+    │   └── current_project_data_4306763_26_1.txt
+    ├── 1689828184_cache
+    │   ├── current_project_data_4306763.txt
+    │   └── current_project_data_4306763_26_1.txt
+    ...
+    ├── 1689867929_cache
+    │   ├── current_project_data_4306763.txt
+    │   └── current_project_data_4306763_27_1.txt
+    ...
+    │   ├── current_project_data_4306763.txt
+    │   ├── current_project_data_4306763_12_1.txt
+    ...
+    │   └── current_project_data_4306763_37_1.txt
+    ├── 1690010946_cache
+    │   ├── current_project_data_4306763.txt
+    │   ├── current_project_data_4306763_26_1.txt
+    │   └── current_project_data_4306763_37_1.txt
+    ├── current_project_data_4306763.txt
+    ├── current_project_data_4306763_10_1.txt
+    ├── current_project_data_4306763_10_2.txt
+    ...
+    ├── current_snippet_data_4306763.txt
+    ├── current_snippet_data_4306763_13_1.txt
+    ├── current_snippet_data_4306763_22_1.txt
+    └── current_snippet_data_4306763_26_1.txt
+
+To avoid unintentionally deleting or overwriting data, there is no command in the script to delete or overwrite files and folders. Therefore, it is good to manually delete all temporary folders with the pattern `<numbers>_cache` in [./src/data/tmp](./src/data/tmp) from time to time if. It is also safe to delete the entire contents of the folder [./src/data/tmp](./src/data/tmp), then the cache will be rebuilt the next time the scripts starts or with the command `u`.
+
+# References
+
+Zsh curses module -  https://zsh.sourceforge.io/Doc/Release/Zsh-Modules.html#The-zsh_002fcurses-Module
+
+GLab - A GitLab CLI - https://docs.gitlab.com/ee/integration/glab/
+
+jq - A command-line JSON processor - https://stedolan.github.io/jq/
+
+A Curses Wiki - https://en.wikipedia.org/wiki/Curses_(programming_library)

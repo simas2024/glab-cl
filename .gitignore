@@ -1,0 +1,13 @@
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+img/*.key
+ignore/*
+testdata/*
+src/data/tmp/*
+src/run.command
+!src/data/tmp/.keep
