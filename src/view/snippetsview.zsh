@@ -26,7 +26,7 @@ view.snippets.load ()
     zcurses refresh statuswin
     dataFile=$(snippets.datafile $2 $userid $pagesize $currentpage)
     zcurses move statuswin $statuswinline 2
-    zcurses string statuswin "Finished!"
+    zcurses string statuswin "Done"
     zcurses delwin statuswin
     while read c1 c2 c3 c4; do
         pid=($pid[@] "$(print ${c1//"gid:\/\/gitlab\/PersonalSnippet\/"/})")
@@ -127,7 +127,7 @@ view.snippets.update ()
     done
     (( statuswinline = statuswinline+1 ))
     zcurses move statuswin $statuswinline 2
-    zcurses string statuswin "Finished!"
+    zcurses string statuswin "Done"
     zcurses delwin statuswin
 }
 

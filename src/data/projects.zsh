@@ -10,6 +10,7 @@ projects._update ()
     ts=$(date +%s)
 
     pageSize="100"
+    
     json=
     ptitle=()
     pid=()
@@ -62,6 +63,8 @@ projects._update ()
         pcountFiles=($pcountFiles[@] "${(@f)$(print -f %s "$json" | jq -r '.data.projects.nodes[].repository.tree | [select(.blobs.nodes[].name) ] | length')}")
         projectIdx=$projectFiles[(i)true]
         while [[ $projectIdx -le ${#projectFiles} ]]; do
+            > "/tmp/status_info.txt" <<< "Processing project ($projectIdx/${#projectFiles})"
+            kill -USR1 $$
             while [[ $projectFiles[$projectIdx] == "true" ]]; do
                 json=$( glab api graphql -F projectPath=$pfullPath[$projectIdx] -F pageSize=$pageSize -F after=$filesCursor[$projectIdx] -f query='
     query ($projectPath: ID!, $after: String, $pageSize: Int) {

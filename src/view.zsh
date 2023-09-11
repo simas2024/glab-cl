@@ -65,7 +65,20 @@ resize()
     fi
 }
 
+status()
+{
+    status_file="/tmp/status_info.txt"
+    if [[ -f $status_file ]]; then
+        status_info=$(<$status_file)
+        view.$currentview.progress "$status_info"
+    fi
+}
+
 trap resize SIGWINCH
+
+trap status SIGUSR1
+
+kill -USR1 $$
 
 view.loop ()
 {
