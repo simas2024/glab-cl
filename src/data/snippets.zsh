@@ -59,6 +59,8 @@ snippets._update ()
         pvisibility=($pvisibility[@] "${(@f)$(print -f %s "$json" | jq -r '.data.snippets.nodes[] | .visibilityLevel')}")
         pcountFiles=($pcountFiles[@] "${(@f)$(print -f %s "$json" | jq -r '.data.snippets.nodes[] | [select(.blobs.nodes[].name) ] | length')}")
         snippetIdx=$snippetFiles[(i)true]
+        > "/tmp/status_info.txt" <<< "Processing snippet ($snippetIdx/${#snippetFiles})"
+        kill -USR1 $$
         while [[ $snippetIdx -le ${#snippetFiles} ]]; do
             while [[ $snippetFiles[$snippetIdx] == "true" ]]; do
                 json=$( glab api graphql -F snippetID=$pid[$snippetIdx] -F authorId=$aid -F pageSize=$pageSize -F lastFilesCursor=$filesCursor[$snippetIdx] -f query='

@@ -5,8 +5,14 @@ zmodload zsh/curses
 typeset -a pid pnames pvisibility pstatus pvisibility_orig pnooffiles velements
 
 source data/snippets.zsh
+source view/statusview.zsh
 
 setopt EXTENDED_GLOB
+
+view.snippets.progress () 
+{
+    view.status.println progressview 2 2 "$1"
+}
 
 view.snippets.load ()
 {
@@ -16,18 +22,11 @@ view.snippets.load ()
     pvisibility=()
     pnooffiles=()
     pname=()
-    typeset -i statuswinline=1
-    zcurses addwin statuswin 4 30 3 3 stdscr
-    zcurses clear statuswin
-    zcurses border statuswin
-    zcurses move statuswin $statuswinline 2
-    (( statuswinline = statuswinline+1 ))
-    zcurses string statuswin "Loading snipptes data ..."
-    zcurses refresh statuswin
+    view.status.add progressview stdscr 30 4
+    view.status.println progressview 1 2 "Loading snippets data ..."
     dataFile=$(snippets.datafile $2 $userid $pagesize $currentpage)
-    zcurses move statuswin $statuswinline 2
-    zcurses string statuswin "Done"
-    zcurses delwin statuswin
+    view.status.println progressview 2 2 "Done!"
+    view.status.del progressview
     while read c1 c2 c3 c4; do
         pid=($pid[@] "$(print ${c1//"gid:\/\/gitlab\/PersonalSnippet\/"/})")
         pvisibility=($pvisibility[@] "$(print $c2)")
@@ -88,20 +87,12 @@ view.snippets.loop ()
 
 view.snippets.update ()
 {
-    typeset -i statuswinline=1
-    zcurses addwin statuswin 4 60 3 3 stdscr
-    zcurses clear statuswin
-    zcurses border statuswin
+    view.status.add updateview stdscr 60 6
     for (( idx = 1; idx < pn+1; idx++ )); do
-        zcurses clear statuswin
-        zcurses refresh statuswin
-        zcurses border statuswin
+        view.status.clear updateview
         if [[ $pstatus[idx] == "*" ]]
         then 
-            (( statuswinline = 1 ))
-            zcurses move statuswin $statuswinline 2
-            zcurses string statuswin "Set visibility $pvisibility[idx] for snippet id: $pid[idx]"
-            zcurses refresh statuswin
+            view.status.println updateview 1 2 "Make snippet $pid[idx] $pvisibility[idx]"
             if [[ $pvisibility[idx] == "public" ]]
             then
                 local GIT_PROJECT_VISIBILITY_UPDATE=$(glab api --method=PUT "/snippets/$pid[idx]?visibility=$pvisibility[idx]") 2>/dev/null
@@ -112,23 +103,17 @@ view.snippets.update ()
             if [[ $newpvisibility == $pvisibility[idx] ]]
             then
                 snippets.updatedatafile $userid $pagesize $currentpage $pid[idx] $pvisibility[idx]
-                (( statuswinline = statuswinline+1 ))
-                zcurses move statuswin $statuswinline 2
-                zcurses string statuswin " ... done!"
+                view.status.println updateview 2 2 "Done!"
                 pstatus[idx]=" "
                 pvisibility_orig[idx]=$pvisibility[idx]
                 (( updates++ ))
             else
-                (( statuswinline = statuswinline+1 ))
-                zcurses move statuswin $statuswinline 2
-                zcurses string statuswin " ... failed!"
+                view.status.println updateview 2 2 "Failed!"
             fi
         fi
     done
-    (( statuswinline = statuswinline+1 ))
-    zcurses move statuswin $statuswinline 2
-    zcurses string statuswin "Done"
-    zcurses delwin statuswin
+    view.status.println updateview 2 2 "Done!"
+    view.status.del updateview
 }
 
 view.snippets.reload ()

@@ -58,8 +58,7 @@ resize()
     if (( monitorwindowresize = 1 )); then
         view.resetView
         view.draw
-        if [[ !  $currentview == "" ]];
-        then
+        if [[ ! $currentview == "" ]]; then
             view.$currentview.reload true
         fi
     fi
@@ -68,17 +67,17 @@ resize()
 status()
 {
     status_file="/tmp/status_info.txt"
-    if [[ -f $status_file ]]; then
-        status_info=$(<$status_file)
-        view.$currentview.progress "$status_info"
+    if [[ ! $currentview == "" ]]; then
+        if [[ -f $status_file ]]; then
+            status_info=$(<$status_file)
+            view.$currentview.progress "$status_info"
+        fi
     fi
 }
 
 trap resize SIGWINCH
 
 trap status SIGUSR1
-
-kill -USR1 $$
 
 view.loop ()
 {
