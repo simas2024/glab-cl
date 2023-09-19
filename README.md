@@ -7,8 +7,6 @@ Functions for a user's GitLab repositories:
 
 # Screenshot
 
-Running the script over `ssh` on Ubuntu 22.04:
-
 <div align="center">
 
 <img align="center" width="800" src="https://www.mascapp.com/taxadb/img/animationExampleE.webp.png">
@@ -94,7 +92,7 @@ Key | Command | GitLab Request | Request Type
 `<CTRL+C>` | **Quit** | no | -
 `c`|  **Clear cache and reset** the view, adjust page size according to the window size. | yes | read
 
-## Clean up the cache files from time to time
+## Clean up the cache
 
 Requested data will be processed and stored locally [./src/data/tmp](./src/data/tmp) and used from there as a cache:
 
@@ -108,36 +106,6 @@ Requested data will be processed and stored locally [./src/data/tmp](./src/data/
     │   ├── current_project_data_4306763.txt
     │   └── current_project_data_4306763_26_1.txt
     ...
-    │   └── current_project_data_4306763_26_1.txt
-    ├── 1689656727_cache
-    │   ├── current_project_data_4306763.txt
-    │   └── current_project_data_4306763_26_1.txt
-    ...
-    ├── 1689747128_cache
-    │   ├── current_project_data_4306763.txt
-    │   └── current_project_data_4306763_26_1.txt
-    ...
-    ├── 1689828151_cache
-    │   ├── current_project_data_4306763.txt
-    │   ├── current_project_data_4306763_24_1.txt
-    │   ├── current_project_data_4306763_25_1.txt
-    │   └── current_project_data_4306763_26_1.txt
-    ├── 1689828184_cache
-    │   ├── current_project_data_4306763.txt
-    │   └── current_project_data_4306763_26_1.txt
-    ...
-    ├── 1689867929_cache
-    │   ├── current_project_data_4306763.txt
-    │   └── current_project_data_4306763_27_1.txt
-    ...
-    │   ├── current_project_data_4306763.txt
-    │   ├── current_project_data_4306763_12_1.txt
-    ...
-    │   └── current_project_data_4306763_37_1.txt
-    ├── 1690010946_cache
-    │   ├── current_project_data_4306763.txt
-    │   ├── current_project_data_4306763_26_1.txt
-    │   └── current_project_data_4306763_37_1.txt
     ├── current_project_data_4306763.txt
     ├── current_project_data_4306763_10_1.txt
     ├── current_project_data_4306763_10_2.txt
@@ -147,7 +115,7 @@ Requested data will be processed and stored locally [./src/data/tmp](./src/data/
     ├── current_snippet_data_4306763_22_1.txt
     └── current_snippet_data_4306763_26_1.txt
 
-To avoid unintentionally deleting or overwriting data, there is no command in the script to delete or overwrite files and folders. Therefore, it is good to manually delete all temporary folders with the pattern `<numbers>_cache` in [./src/data/tmp](./src/data/tmp) from time to time if. It is also safe to delete the entire contents of the folder [./src/data/tmp](./src/data/tmp), then the cache will be rebuilt the next time the scripts starts or with the command `u`.
+To avoid unintentionally deleting or overwriting data, there is no command in the script that deletes or overwrites files or folders. Therefore, it is good to manually delete all temporary folders with the pattern `<numbers>_cache` in [./src/data/tmp](./src/data/tmp) from time to time if. It is also safe to delete the entire contents of the folder [./src/data/tmp](./src/data/tmp), then the cache will be rebuilt the next time the scripts starts or with the command `u`.
 
 # References
 
