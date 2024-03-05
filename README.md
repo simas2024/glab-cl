@@ -9,7 +9,7 @@ Functions for a user's GitLab repositories:
 
 Ubuntu and macOS:
 
-### Last updated 05/04/2024
+### Last updated 2024-02-05
 
     Linux 6.5.0-18-generic #18~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Wed Feb  7 11:40:03 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
     Linux 6.5.0-1011-raspi #14-Ubuntu SMP PREEMPT_DYNAMIC Fri Feb  9 14:06:28 UTC 2024 aarch64 aarch64 aarch64 GNU/Linux
