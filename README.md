@@ -5,6 +5,16 @@ Functions for a user's GitLab repositories:
 - Load projects information and navigate through all projects and change the visibility
 - Load personal snippets information and navigate through all snippets and change the visibility
 
+## Platforms tested
+
+Ubuntu and macOS:
+
+### Last updated 20.04.2024
+
+    Linux 6.5.0-18-generic #18~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Wed Feb  7 11:40:03 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+    Linux 6.5.0-1011-raspi #14-Ubuntu SMP PREEMPT_DYNAMIC Fri Feb  9 14:06:28 UTC 2024 aarch64 aarch64 aarch64 GNU/Linux
+    Darwin 23.3.0 Darwin Kernel Version 23.3.0: Wed Dec 20 21:30:27 PST 2023; root:xnu-10002.81.5~7/RELEASE_ARM64_T8103 arm64
+
 # Screenshot
 
 <div align="center">
