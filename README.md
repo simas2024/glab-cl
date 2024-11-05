@@ -19,7 +19,7 @@ Ubuntu and macOS:
 
 <div align="center">
 
-<img align="center" width="800" src="https://www.mascapp.com/taxadb/img/animationExampleE.webp.png">
+<img align="center" width="800" src="img/animationExampleE.webp.png">
 
 </div>
 
