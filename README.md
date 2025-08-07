@@ -1,3 +1,4 @@
+```bash
 ┌────────────────────────────────────────────────────────┐
 │ ⚠️  Unmaintained Repository                            │
 │                                                        │
@@ -5,6 +6,7 @@
 │ current platforms in a long time. Use at your own      │
 │ risk.                                                  │
 └────────────────────────────────────────────────────────┘
+```
 
 # GLab Command Line Tool
 
