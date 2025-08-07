@@ -1,3 +1,11 @@
+┌────────────────────────────────────────────────────────┐
+│ ⚠️  Unmaintained Repository                            │
+│                                                        │
+│ This project is archived and hasn’t been tested on     │
+│ current platforms in a long time. Use at your own      │
+│ risk.                                                  │
+└────────────────────────────────────────────────────────┘
+
 # GLab Command Line Tool
 
 Functions for a user's GitLab repositories:
